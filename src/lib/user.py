@@ -1,20 +1,44 @@
-    # if request.method == "GET":
-    #     with open("users.json", "r") as f:
-    #         data = json.load(f)
-    #         data.append({
-    #             "username": "user4",
-    #             "pets": ["hamster"]
-    #         })
-    #         return flask.jsonify(data)
-    # if request.method == "POST":
-    #     received_data = request.get_json()
-    #     print(f"received data: {received_data}")
-    #     message = received_data['data']
-    #     return_data = {
-    #         "status": "success",
-    #         "message": f"received: {message}"
-    #     }
-    #     return flask.Response(response=json.dumps(return_data), status=201)
+import mysql.connector
 
-def save_user():
+
+def connect_mysql():
+    db = mysql.connector.connect(
+        host="localhost",
+        user="root",
+        password="root",
+        database="skin_cancer_detection"
+    )
+    return db
+
+
+def save_user(req):
     print('Saving user data')
+
+    name = req['name']
+    phone = req['phone']
+    email = req['email']
+    password = req['password']
+
+    print('Request data ------------------')
+    print(name)
+    print(phone)
+    print(email)
+    print(password)
+
+    mydb = connect_mysql()
+    mycursor = mydb.cursor()
+    mycursor.execute('SELECT COUNT(*) FROM tbl_user WHERE email = %s', (email,))
+
+    count = mycursor.fetchone()[0]
+
+    print('Record count', count)
+
+    if count > 0:
+        return False
+
+    sql = "INSERT INTO tbl_user (name, email, password, mobile) VALUES (%s, %s, %s, %s)"
+    value = (name, email, password, phone)
+    mycursor.execute(sql, value)
+    mydb.commit()
+    print('Data inserted')
+    return True

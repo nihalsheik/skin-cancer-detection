@@ -7,6 +7,7 @@
     <title>Login - Lesion Lens</title>
     <meta content="" name="description">
     <meta content="" name="keywords">
+    
 
 
     <link href="../static/assets/favicon.ico" rel="icon">
@@ -34,26 +35,7 @@
 
 <body class="contact-page">
 
-    <header id="header" class="header d-flex align-items-center fixed-top">
-        <div class="container-fluid container-xl position-relative d-flex align-items-center justify-content-between">
-
-            <a href="index.html" class="logo d-flex align-items-center">
-
-                <h1 class="sitename">Lesion Lens</h1> <span>.</span>
-            </a>
-
-            <nav id="navmenu" class="navmenu">
-                <ul>
-                  <li><a href="{{url_for('first')}}">Home</a></li>
-                  <li><a href="{{url_for('signup')}}">Signup</a></li>
-                  <li><a href="{{url_for('index')}}">Upload</a></li>
-                  <li><a href="{{url_for('first')}}">Logout</a></li>
-                </ul>
-                <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
-              </nav>
-
-        </div>
-    </header>
+  
 
     <main class="main">
 
@@ -61,6 +43,15 @@
             style="background-image: url(https://barraesthetics.com/wp-content/uploads/2021/06/PSX_20210608_150247.jpg);">
             <div class="container position-relative">
                 <h1>Login</h1>
+                 <nav class="breadcrumbs">
+                    <ol>
+                        <li><a href="{{url_for('first')}}">Home</a></li>
+                        <li><a href="{{url_for('signup')}}">Signup</a></li>
+                        <li class="current">Login</li>
+                        <li><a href="{{url_for('index')}}">Upload</a></li>
+                        <li><a href="{{url_for('first')}}">Logout</a></li>
+                    </ol>
+                </nav>
             </div>
         </div>
         <section id="contact" class="contact section">
@@ -74,6 +65,7 @@
                             frameborder="0" style="border:0; width: 100%; height: 400px;" loading="lazy"
                             referrerpolicy="no-referrer-when-downgrade"></img>
                     </div>
+                    
 
                     <div class="col-lg-6">
                         <form class="php-email-form" data-aos="fade-up" data-aos-delay="400">
