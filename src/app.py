@@ -54,21 +54,22 @@ def index():
 
 @app.route("/signup", methods=['GET', 'POST'])
 def signup():
-    req_data = {}
+    form_data = {}
     if request.method == 'GET':
-        return render_template('signup.html', req_data = req_data)
+        return render_template('signup.html', form_data = form_data)
 
-    req_data = {
+    form_data = {
         'name': request.form.get('name'),
         'phone': request.form.get('phone'),
         'email': request.form.get('email'),
         'password': request.form.get('password')
     }
-    res = user.save_user(req_data)
-    if res:
-        return render_template('login.html')
+    res = user.save_user(form_data)
+    if res['hasError']:
+        form_data['error'] = res['error']
+        return render_template('signup.html', form_data=form_data)
     else:
-        return render_template('signup.html', req_data = req_data)
+        return render_template('login.html')
 
 
 # --------------------------------------------------------------------------------#

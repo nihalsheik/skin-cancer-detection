@@ -11,13 +11,13 @@ def connect_mysql():
     return db
 
 
-def save_user(req):
+def save_user(form_data):
     print('Saving user data')
 
-    name = req['name']
-    phone = req['phone']
-    email = req['email']
-    password = req['password']
+    name = form_data['name']
+    phone = form_data['phone']
+    email = form_data['email']
+    password = form_data['password']
 
     print('Request data ------------------')
     print(name)
@@ -34,11 +34,16 @@ def save_user(req):
     print('Record count', count)
 
     if count > 0:
-        return False
+        return {
+            'hasError': True,
+            'error': 'User already exist'
+        }
 
     sql = "INSERT INTO tbl_user (name, email, password, mobile) VALUES (%s, %s, %s, %s)"
     value = (name, email, password, phone)
     mycursor.execute(sql, value)
     mydb.commit()
     print('Data inserted')
-    return True
+    return {
+        'hasError': False
+    }
