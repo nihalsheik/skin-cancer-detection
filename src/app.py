@@ -4,6 +4,7 @@ from tensorflow.keras.models import load_model # type: ignore
 from tensorflow.keras.preprocessing import image # type: ignore
 from tensorflow.keras.metrics import AUC # type: ignore
 import numpy as np
+import lib.user as user
 
 app = Flask(__name__)
 
@@ -12,15 +13,14 @@ dependencies = {
 }
 
 verbose_name = {
-0: 'Actinic keratoses and intraepithelial carcinomae',
-1: 'Basal cell carcinoma',
-2: 'Benign keratosis-like lesions',
-3: 'Dermatofibroma',
-4: 'Melanocytic nevi',
-5: 'Pyogenic granulomas and hemorrhage',
-6: 'Melanoma',
-
-           }
+	0: 'Actinic keratoses and intraepithelial carcinomae',
+	1: 'Basal cell carcinoma',
+	2: 'Benign keratosis-like lesions',
+	3: 'Dermatofibroma',
+	4: 'Melanocytic nevi',
+	5: 'Pyogenic granulomas and hemorrhage',
+	6: 'Melanoma',
+}
 
 
 model = load_model('D:/nihal/python-projects/skin-cancer-prediction-project/src/model/skin.h5')
@@ -49,9 +49,14 @@ def login():
 def index():
 	return render_template("index.html")
 
-@app.route("/signup")
+@app.route("/signup",  methods=['GET', 'POST'])
 def signup():
-	return render_template('signup.html')   
+	if request.method == 'GET':
+		return render_template('signup.html')   
+	else:
+		user.save_user()
+
+#--------------------------------------------------------------------------------#
 
 @app.route("/submit", methods = ['GET', 'POST'])
 def get_output():
@@ -65,10 +70,5 @@ def get_output():
 
 	return render_template("prediction.html", prediction = predict_result, img_path = img_path)
 
- 
-    
-
-
-	
 if __name__ =='__main__':
 	app.run(debug = True)
