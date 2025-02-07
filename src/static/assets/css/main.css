@@ -4,7 +4,6 @@
   --nav-font: "Poppins", sans-serif;
 }
 
-
 :root {
   --background-color: #ffffff;
   --background-color-rgb: 255, 255, 255;
@@ -575,7 +574,7 @@ h6 {
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  padding: 160px 0 60px 0;
+  padding: 80px 0 60px 0;
   text-align: center;
   position: relative;
 }
@@ -619,7 +618,6 @@ section,
 .section {
   color: var(--default-color);
   background-color: var(--background-color);
-  padding: 60px 0;
   scroll-margin-top: 92px;
   overflow: clip;
 }

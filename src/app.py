@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, jsonify
 import tensorflow as tf
 from tensorflow.keras.models import load_model  # type: ignore
 from tensorflow.keras.preprocessing import image  # type: ignore
@@ -51,6 +51,14 @@ def login():
 def index():
     return render_template("index.html")
 
+
+@app.route("/login2", methods=['POST'])
+def login2():
+    form_data = request.get_json()
+    result = user.check_login(form_data['email'], form_data['password'])
+    return jsonify({
+        'result': result
+    })
 
 @app.route("/signup", methods=['GET', 'POST'])
 def signup():
